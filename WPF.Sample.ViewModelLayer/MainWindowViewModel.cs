@@ -6,7 +6,7 @@ namespace WPF.Sample.ViewModelLayer
     public class MainWindowViewModel : ViewModelBase
     {
         #region Private Variables
-        private const int SECONDS = 1500;
+        private const int SECONDS = 500;
         #endregion
 
         #region Properties
