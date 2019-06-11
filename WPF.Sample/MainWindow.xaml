@@ -30,15 +30,22 @@
             </Menu.ItemsPanel>
             <MenuItem Header="_File">
                 <MenuItem Header="E_xit"
+                          Tag="exit"
                   Click="MenuItem_Click" />
             </MenuItem>
             <MenuItem Header="Users"
-                Click="MenuItem_Click" />
+                Click="MenuItem_Click" 
+                      Tag="WPF.Sample.UserControls.UserMaintenanceControl"
+                      />
             <MenuItem Header="Feedback"
-                Click="MenuItem_Click" />
+                Click="MenuItem_Click" 
+                      Tag="WPF.Sample.UserControls.UserFeedbackControl"
+                      />
             <MenuItem Header="{Binding Path=LoginMenuHeader}"
                 HorizontalAlignment="Right"
-                Click="MenuItem_Click" />
+                Click="MenuItem_Click" 
+                      Tag="WPF.Sample.UserControls.LoginControl"
+                      />
         </Menu>
 
         <!--Informational Message Area-->
