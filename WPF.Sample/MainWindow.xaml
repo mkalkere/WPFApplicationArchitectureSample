@@ -9,7 +9,8 @@
         WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Window.Resources>
         <vm:MainWindowViewModel x:Key="viewModel"
-                                InfoMessageTitle="Please Wait while Application Loading..."
+                                InfoMessageTitle="Please Wait..."
+                                InfoMessageTimeOut="1500"
                                 StatusMessage="Sample WPF Application" />
     </Window.Resources>
     <Grid Background="{StaticResource gridBackgroundColor}"

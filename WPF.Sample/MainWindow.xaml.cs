@@ -10,11 +10,21 @@ namespace WPF.Sample
 {
     public partial class MainWindow : Window
     {
+
+        #region Private Vaiables
+        private string _originalMessage = string.Empty;
+        #endregion
+
         public MainWindowViewModel _viewModel = null;
         public MainWindow()
         {
             InitializeComponent();
+
+            //Connect to the instance of the view model created by the XAML
             _viewModel = (MainWindowViewModel)this.Resources["viewModel"];
+
+            //Get the original status message
+            _originalMessage = _viewModel.StatusMessage;
 
             //Initialize the Message Broker Events
             MessageBroker.Instance.MessageReceived += Instance_MessageReceived;
@@ -24,11 +34,24 @@ namespace WPF.Sample
         {
             switch (e.MessageName)
             {
+                 case MessageBrokerMessages.DISPLAY_STATUS_MESSAGE:      
+                     // Set new status message      
+                    _viewModel.StatusMessage = e.MessagePayload.ToString();     
+                    break;
+                case MessageBrokerMessages.DISPLAY_TIMEOUT_INFO_MESSAGE_TITLE:
+                    _viewModel.InfoMessageTitle = e.MessagePayload.ToString();
+                    _viewModel.CreateInfoMessaqgeTimer();
+                    break;
+                case MessageBrokerMessages.DISPLAY_TIMEOUT_INFO_MESSAGE:
+                    _viewModel.InfoMessage = e.MessagePayload.ToString();
+                    _viewModel.CreateInfoMessaqgeTimer();
+                    break;
                 case MessageBrokerMessages.CLOSE_USER_CONTROL:
                     CloseUserControl();
                     break;
                 default:
                     break;
+
             }
         }
 
@@ -84,6 +107,9 @@ namespace WPF.Sample
         public void CloseUserControl()
         {
             contentArea.Children.Clear();
+
+            //Restore the original status message
+            _viewModel.StatusMessage = _originalMessage;
         }
         private void LoadUserControl(string controlName)
         {

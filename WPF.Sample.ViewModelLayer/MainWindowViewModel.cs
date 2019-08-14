@@ -1,5 +1,6 @@
 ﻿using Common.Library;
 using System.Threading;
+using System.Timers;
 
 namespace WPF.Sample.ViewModelLayer
 {
@@ -7,6 +8,7 @@ namespace WPF.Sample.ViewModelLayer
     {
         #region Private Variables
         private const int SECONDS = 500;
+        private System.Timers.Timer _InfoMessageTimer = null;
         #endregion
 
         #region Properties
@@ -65,6 +67,14 @@ namespace WPF.Sample.ViewModelLayer
                 RaisePropertyChanged(nameof(InfoMessage));
             }
         }
+
+        private int _InfoMessageTimeOut;
+        public int InfoMessageTimeOut
+        {
+            get { return _InfoMessageTimeOut; }
+            set { _InfoMessageTimeOut = value; }
+        }
+
         #endregion
 
         #region Methods
@@ -87,6 +97,27 @@ namespace WPF.Sample.ViewModelLayer
         {
             InfoMessage = string.Empty;
             InfoMessageTitle = string.Empty;
+            IsInfoMessageVisible = false;
+        }
+
+        public virtual void CreateInfoMessaqgeTimer()
+        {
+            if(_InfoMessageTimer == null)
+            {
+                //Create informational message timer
+                _InfoMessageTimer = new System.Timers.Timer(_InfoMessageTimeOut);
+
+                //Connect to elapsed event
+                _InfoMessageTimer.Elapsed += _MessageTimer_Elapsed;
+            }
+
+            _InfoMessageTimer.AutoReset = false;
+            _InfoMessageTimer.Enabled = true;
+            IsInfoMessageVisible = true;
+        }
+
+        private void _MessageTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
             IsInfoMessageVisible = false;
         }
         #endregion

@@ -9,6 +9,9 @@ namespace WPF.Sample.ViewModelLayer
 {
     public class UserMaintenanceViewModel : ViewModelBase
     {
-
+        public UserMaintenanceViewModel()
+        {
+            DisplayStatusMessage("Maintain Users");
+        }
     }
 }

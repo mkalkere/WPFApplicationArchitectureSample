@@ -12,13 +12,66 @@
         <vm:LoginViewModel x:Key="viewModel"/>
     </UserControl.Resources>
     <Border Style="{StaticResource screenBorder}">
-        <StackPanel>
-            <TextBlock Text="Login Screen"
-                   FontSize="18"
-                   Margin="20,80"/>
-            <Button Content="Close"
-                    HorizontalAlignment="Left"
-                    Click="CloseButton_Click"/>
-        </StackPanel>
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0.5,0.5"
+                                 EndPoint="0.5,1">
+                <GradientStop Color="DarkGray"
+                              Offset="0"/>
+                <GradientStop Color="Gray"
+                              Offset="1"/>
+            </LinearGradientBrush>
+        </Border.Background>
+        <Grid DataContext="{Binding Source={StaticResource viewModel}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Row="0"
+                   Grid.Column="0"
+                   Margin="4,4,12,20"
+                   Effect="{StaticResource buttonShadow}"
+                   Source="pack://application:,,,/WPF.Common;component/Images/Key_Color.png"/>
+            <Border Grid.Row="0"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    Effect="{StaticResource buttonShadow}"
+                    Margin="4,4,4,20"
+                    CornerRadius="10">
+                <Border.Background>
+                    <LinearGradientBrush EndPoint="0.5,1"
+                                         StartPoint="0.5,0">
+                        <GradientStop Color="Gray"
+                                      Offset="0"/>
+                        <GradientStop Color="DarkGray"
+                                      Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Label FontSize="18"
+                       Style="{StaticResource inverseLabel}"
+                       Content="Please Login to access this Application"/>
+            </Border>
+            <Label Grid.Row="1"
+                   Grid.Column="1"
+                   Content="User Name"/>
+            <TextBox Grid.Row="1"
+                     Grid.Column="2"
+                     ToolTip="Enter your User Name"
+                     Text="{Binding Path=Entity.UserName}"/>
+            <Label Grid.Row="2"
+                   Grid.Column="1"
+                   Content="Password"/>
+            <PasswordBox Grid.Row="2"
+                         Grid.Column="2"
+                         ToolTip="Enter your Password"
+                         Name="txtPassword"/>
+            
+        </Grid>
     </Border>
 </UserControl>
